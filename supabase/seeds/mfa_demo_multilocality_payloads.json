@@ -1,0 +1,325 @@
+{
+  "notes": [
+    "Use these payloads in materials/flow/create for 5 companies to enable another multi-party, multi-locality super deal.",
+    "Expected chain: Hyderabad supplier -> Hyderabad processor -> Bengaluru buyer A + Bengaluru buyer B with logistics support.",
+    "Replace company_id per company before submit."
+  ],
+  "payloads": [
+    {
+      "company_name": "Demo HydraSteel Supplier (hyderabad)",
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "iron ore fines",
+            "category": "metal",
+            "subtype": "iron-ore-fines",
+            "monthlyVolume": 120,
+            "unit": "tons",
+            "costPerUnit": 190,
+            "supplier": "regional mines",
+            "recycledContentPercent": 5,
+            "processStep": "smelting prep"
+          },
+          {
+            "name": "coke blend",
+            "category": "chemical",
+            "subtype": "coke-blend",
+            "monthlyVolume": 40,
+            "unit": "tons",
+            "costPerUnit": 210,
+            "supplier": "fuel vendor",
+            "recycledContentPercent": 0,
+            "processStep": "reduction"
+          },
+          {
+            "name": "flux lime",
+            "category": "chemical",
+            "subtype": "flux-lime",
+            "monthlyVolume": 25,
+            "unit": "tons",
+            "costPerUnit": 85,
+            "supplier": "local minerals",
+            "recycledContentPercent": 0,
+            "processStep": "slag control"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "steel turnings clean",
+          "materialCategory": "metal",
+          "materialSubtype": "steel-turnings-clean",
+          "physicalForm": "scrap",
+          "monthlyVolume": 50,
+          "unit": "tons",
+          "qualityGrade": "B",
+          "contaminationLevel": 5,
+          "moistureContent": 2,
+          "carbonFootprint": 1.2,
+          "waterUsage": 0.5,
+          "energyConsumption": 4.5,
+          "currentDisposalCost": 98000,
+          "potentialValue": 182000,
+          "classification": "recyclable",
+          "generationFrequency": "daily",
+          "storageLocation": "hyd-yard-1",
+          "isHazardous": false,
+          "wasteCode": "HYD-FM-201",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo Deccan Processor (hyderabad)",
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "steel turnings clean",
+            "category": "metal",
+            "subtype": "steel-turnings-clean",
+            "monthlyVolume": 80,
+            "unit": "tons",
+            "costPerUnit": 215,
+            "supplier": "local recyclers",
+            "recycledContentPercent": 45,
+            "processStep": "sorting"
+          },
+          {
+            "name": "hms1 heavy scrap",
+            "category": "metal",
+            "subtype": "hms-1-heavy-scrap",
+            "monthlyVolume": 70,
+            "unit": "tons",
+            "costPerUnit": 225,
+            "supplier": "regional",
+            "recycledContentPercent": 35,
+            "processStep": "shredding"
+          },
+          {
+            "name": "alloy blend additives",
+            "category": "chemical",
+            "subtype": "alloy-additives",
+            "monthlyVolume": 10,
+            "unit": "tons",
+            "costPerUnit": 410,
+            "supplier": "metallurgy vendor",
+            "recycledContentPercent": 0,
+            "processStep": "alloy balancing"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "processed billet feed",
+          "materialCategory": "metal",
+          "materialSubtype": "processed-billet-feed",
+          "physicalForm": "solid",
+          "monthlyVolume": 62,
+          "unit": "tons",
+          "qualityGrade": "A",
+          "contaminationLevel": 3,
+          "moistureContent": 1,
+          "carbonFootprint": 0.9,
+          "waterUsage": 0.4,
+          "energyConsumption": 3.8,
+          "currentDisposalCost": 55000,
+          "potentialValue": 205000,
+          "classification": "reusable",
+          "generationFrequency": "daily",
+          "storageLocation": "hyd-processor-bay",
+          "isHazardous": false,
+          "wasteCode": "HYD-FM-202",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo Bengaluru Auto Buyer (bengaluru)",
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "processed billet feed",
+            "category": "metal",
+            "subtype": "processed-billet-feed",
+            "monthlyVolume": 45,
+            "unit": "tons",
+            "costPerUnit": 262,
+            "supplier": "processor",
+            "recycledContentPercent": 30,
+            "processStep": "component forging"
+          },
+          {
+            "name": "steel coils",
+            "category": "metal",
+            "subtype": "steel-coils",
+            "monthlyVolume": 30,
+            "unit": "tons",
+            "costPerUnit": 290,
+            "supplier": "regional",
+            "recycledContentPercent": 12,
+            "processStep": "stamping"
+          },
+          {
+            "name": "surface treatment mix",
+            "category": "chemical",
+            "subtype": "surface-treatment",
+            "monthlyVolume": 8,
+            "unit": "tons",
+            "costPerUnit": 460,
+            "supplier": "chemical vendor",
+            "recycledContentPercent": 0,
+            "processStep": "finishing"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "press offcuts medium grade",
+          "materialCategory": "metal",
+          "materialSubtype": "press-offcuts-medium",
+          "physicalForm": "scrap",
+          "monthlyVolume": 20,
+          "unit": "tons",
+          "qualityGrade": "B",
+          "contaminationLevel": 7,
+          "moistureContent": 1,
+          "carbonFootprint": 1.0,
+          "waterUsage": 0.3,
+          "energyConsumption": 3.2,
+          "currentDisposalCost": 73000,
+          "potentialValue": 118000,
+          "classification": "recyclable",
+          "generationFrequency": "daily",
+          "storageLocation": "blr-auto-yard",
+          "isHazardous": false,
+          "wasteCode": "BLR-FM-203",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo Bengaluru Infra Buyer (bengaluru)",
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "processed billet feed",
+            "category": "metal",
+            "subtype": "processed-billet-feed",
+            "monthlyVolume": 28,
+            "unit": "tons",
+            "costPerUnit": 256,
+            "supplier": "processor",
+            "recycledContentPercent": 24,
+            "processStep": "beam shaping"
+          },
+          {
+            "name": "hms1 heavy scrap",
+            "category": "metal",
+            "subtype": "hms-1-heavy-scrap",
+            "monthlyVolume": 34,
+            "unit": "tons",
+            "costPerUnit": 236,
+            "supplier": "local recyclers",
+            "recycledContentPercent": 16,
+            "processStep": "secondary melt"
+          },
+          {
+            "name": "mill scale blend",
+            "category": "metal",
+            "subtype": "mill-scale-blend",
+            "monthlyVolume": 18,
+            "unit": "tons",
+            "costPerUnit": 205,
+            "supplier": "local",
+            "recycledContentPercent": 22,
+            "processStep": "blending"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "structural cut scrap",
+          "materialCategory": "metal",
+          "materialSubtype": "structural-cut-scrap",
+          "physicalForm": "scrap",
+          "monthlyVolume": 17,
+          "unit": "tons",
+          "qualityGrade": "B",
+          "contaminationLevel": 6,
+          "moistureContent": 1,
+          "carbonFootprint": 1.1,
+          "waterUsage": 0.2,
+          "energyConsumption": 2.9,
+          "currentDisposalCost": 64000,
+          "potentialValue": 103000,
+          "classification": "recyclable",
+          "generationFrequency": "daily",
+          "storageLocation": "blr-infra-yard",
+          "isHazardous": false,
+          "wasteCode": "BLR-FM-204",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo SouthLink Logistics (bengaluru)",
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "cluster transport bundle",
+            "category": "metal",
+            "subtype": "cluster-transport-bundle",
+            "monthlyVolume": 180,
+            "unit": "tons",
+            "costPerUnit": 19,
+            "supplier": "internal",
+            "recycledContentPercent": 0,
+            "processStep": "route orchestration"
+          },
+          {
+            "name": "handling pallets",
+            "category": "paper",
+            "subtype": "reusable-pallets",
+            "monthlyVolume": 15,
+            "unit": "tons",
+            "costPerUnit": 72,
+            "supplier": "local",
+            "recycledContentPercent": 35,
+            "processStep": "handling"
+          },
+          {
+            "name": "packaging wraps",
+            "category": "plastic",
+            "subtype": "industrial-wraps",
+            "monthlyVolume": 6,
+            "unit": "tons",
+            "costPerUnit": 120,
+            "supplier": "local",
+            "recycledContentPercent": 20,
+            "processStep": "shipment prep"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "route backhaul residuals",
+          "materialCategory": "metal",
+          "materialSubtype": "logistics-backhaul-residuals",
+          "physicalForm": "mixed",
+          "monthlyVolume": 12,
+          "unit": "tons",
+          "qualityGrade": "C",
+          "contaminationLevel": 12,
+          "moistureContent": 3,
+          "carbonFootprint": 0.7,
+          "waterUsage": 0.2,
+          "energyConsumption": 2.1,
+          "currentDisposalCost": 41000,
+          "potentialValue": 62000,
+          "classification": "processable",
+          "generationFrequency": "weekly",
+          "storageLocation": "blr-logistics-hub",
+          "isHazardous": false,
+          "wasteCode": "BLR-FM-205",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    }
+  ]
+}
+

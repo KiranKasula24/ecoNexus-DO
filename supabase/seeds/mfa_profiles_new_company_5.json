@@ -1,0 +1,313 @@
+[
+  {
+    "profile_id": "mfa_hyd_supplier_many_to_one",
+    "target_locality": "hyderabad",
+    "proposal_fit": "same_locality_many_to_one",
+    "primaryMaterials": [
+      {
+        "name": "Mixed Steel Offcuts",
+        "category": "metal",
+        "subtype": "mixed-steel-offcuts",
+        "monthlyVolume": 160,
+        "unit": "tons",
+        "costPerUnit": 208,
+        "supplier": "Local scrap aggregators",
+        "recycledContentPercent": 72,
+        "processStep": "sorting"
+      },
+      {
+        "name": "Shredded Ferrous Scrap",
+        "category": "metal",
+        "subtype": "shredded-ferrous-scrap",
+        "monthlyVolume": 130,
+        "unit": "tons",
+        "costPerUnit": 214,
+        "supplier": "Regional yards",
+        "recycledContentPercent": 80,
+        "processStep": "shredding"
+      },
+      {
+        "name": "Lime Flux",
+        "category": "chemical",
+        "subtype": "lime-flux",
+        "monthlyVolume": 25,
+        "unit": "tons",
+        "costPerUnit": 75,
+        "supplier": "Industrial minerals",
+        "recycledContentPercent": 5,
+        "processStep": "melting-assist"
+      }
+    ],
+    "wasteGenerated": {
+      "materialName": "Ferrous Trimming Scrap",
+      "materialCategory": "ferrous-metals",
+      "materialSubtype": "shredded-ferrous-scrap",
+      "physicalForm": "scrap",
+      "monthlyVolume": 95,
+      "unit": "tons",
+      "qualityGrade": "B",
+      "contaminationLevel": 10,
+      "moistureContent": 4,
+      "carbonFootprint": 1.8,
+      "waterUsage": 0.9,
+      "energyConsumption": 280,
+      "currentDisposalCost": 58,
+      "potentialValue": 208,
+      "classification": "recyclable",
+      "generationFrequency": "daily",
+      "storageLocation": "yard-a",
+      "isHazardous": false,
+      "wasteCode": "FM-101",
+      "regulatoryClassification": "non_hazardous_industrial"
+    }
+  },
+  {
+    "profile_id": "mfa_hyd_buyer_bundle",
+    "target_locality": "hyderabad",
+    "proposal_fit": "same_locality_many_to_one_buyer",
+    "primaryMaterials": [
+      {
+        "name": "Processed Ferrous Blend",
+        "category": "metal",
+        "subtype": "processed-ferrous-blend",
+        "monthlyVolume": 120,
+        "unit": "tons",
+        "costPerUnit": 238,
+        "supplier": "Local processors",
+        "recycledContentPercent": 65,
+        "processStep": "furnace-feed"
+      },
+      {
+        "name": "Shredded Ferrous Scrap",
+        "category": "metal",
+        "subtype": "shredded-ferrous-scrap",
+        "monthlyVolume": 90,
+        "unit": "tons",
+        "costPerUnit": 232,
+        "supplier": "Regional recyclers",
+        "recycledContentPercent": 75,
+        "processStep": "blend-input"
+      },
+      {
+        "name": "Binder Additives",
+        "category": "chemical",
+        "subtype": "binder-additives",
+        "monthlyVolume": 18,
+        "unit": "tons",
+        "costPerUnit": 88,
+        "supplier": "Chemical supply",
+        "recycledContentPercent": 2,
+        "processStep": "compaction"
+      }
+    ],
+    "wasteGenerated": {
+      "materialName": "Mill Scale Residue",
+      "materialCategory": "ferrous-metals",
+      "materialSubtype": "mill-scale-blend",
+      "physicalForm": "powder",
+      "monthlyVolume": 48,
+      "unit": "tons",
+      "qualityGrade": "C",
+      "contaminationLevel": 14,
+      "moistureContent": 7,
+      "carbonFootprint": 1.4,
+      "waterUsage": 0.8,
+      "energyConsumption": 240,
+      "currentDisposalCost": 47,
+      "potentialValue": 168,
+      "classification": "processable",
+      "generationFrequency": "daily",
+      "storageLocation": "silo-2",
+      "isHazardous": false,
+      "wasteCode": "FM-202",
+      "regulatoryClassification": "industrial_byproduct"
+    }
+  },
+  {
+    "profile_id": "mfa_blr_split_one_to_many",
+    "target_locality": "bengaluru",
+    "proposal_fit": "same_locality_one_to_many",
+    "primaryMaterials": [
+      {
+        "name": "Mixed Steel Offcuts",
+        "category": "metal",
+        "subtype": "mixed-steel-offcuts",
+        "monthlyVolume": 145,
+        "unit": "tons",
+        "costPerUnit": 212,
+        "supplier": "Metro recyclers",
+        "recycledContentPercent": 68,
+        "processStep": "pre-sort"
+      },
+      {
+        "name": "HMS Scrap",
+        "category": "metal",
+        "subtype": "hms-heavy-scrap",
+        "monthlyVolume": 110,
+        "unit": "tons",
+        "costPerUnit": 225,
+        "supplier": "Industrial yards",
+        "recycledContentPercent": 70,
+        "processStep": "shearing"
+      },
+      {
+        "name": "Graphite Additive",
+        "category": "chemical",
+        "subtype": "graphite-additive",
+        "monthlyVolume": 12,
+        "unit": "tons",
+        "costPerUnit": 120,
+        "supplier": "Metallurgical supply",
+        "recycledContentPercent": 1,
+        "processStep": "furnace-stabilization"
+      }
+    ],
+    "wasteGenerated": {
+      "materialName": "Sorted Offcut Blend",
+      "materialCategory": "ferrous-metals",
+      "materialSubtype": "mixed-steel-offcuts",
+      "physicalForm": "solid",
+      "monthlyVolume": 86,
+      "unit": "tons",
+      "qualityGrade": "B",
+      "contaminationLevel": 9,
+      "moistureContent": 3,
+      "carbonFootprint": 1.6,
+      "waterUsage": 0.7,
+      "energyConsumption": 225,
+      "currentDisposalCost": 52,
+      "potentialValue": 205,
+      "classification": "recyclable",
+      "generationFrequency": "daily",
+      "storageLocation": "bay-4",
+      "isHazardous": false,
+      "wasteCode": "FM-303",
+      "regulatoryClassification": "non_hazardous_industrial"
+    }
+  },
+  {
+    "profile_id": "mfa_blr_cross_locality_buyer",
+    "target_locality": "bengaluru",
+    "proposal_fit": "cross_locality_many_to_one_buyer_cluster",
+    "primaryMaterials": [
+      {
+        "name": "Shredded Ferrous Scrap",
+        "category": "metal",
+        "subtype": "shredded-ferrous-scrap",
+        "monthlyVolume": 125,
+        "unit": "tons",
+        "costPerUnit": 242,
+        "supplier": "Intercity suppliers",
+        "recycledContentPercent": 76,
+        "processStep": "charge-prep"
+      },
+      {
+        "name": "Processed Ferrous Blend",
+        "category": "metal",
+        "subtype": "processed-ferrous-blend",
+        "monthlyVolume": 98,
+        "unit": "tons",
+        "costPerUnit": 248,
+        "supplier": "Regional processors",
+        "recycledContentPercent": 71,
+        "processStep": "line-feed"
+      },
+      {
+        "name": "Alloy Micro Additive",
+        "category": "chemical",
+        "subtype": "alloy-micro-additive",
+        "monthlyVolume": 9,
+        "unit": "tons",
+        "costPerUnit": 140,
+        "supplier": "Specialty chemistry",
+        "recycledContentPercent": 0,
+        "processStep": "grade-control"
+      }
+    ],
+    "wasteGenerated": {
+      "materialName": "Ferrous Slitting Returns",
+      "materialCategory": "ferrous-metals",
+      "materialSubtype": "processed-ferrous-blend",
+      "physicalForm": "scrap",
+      "monthlyVolume": 42,
+      "unit": "tons",
+      "qualityGrade": "B",
+      "contaminationLevel": 8,
+      "moistureContent": 2,
+      "carbonFootprint": 1.3,
+      "waterUsage": 0.5,
+      "energyConsumption": 190,
+      "currentDisposalCost": 45,
+      "potentialValue": 176,
+      "classification": "processable",
+      "generationFrequency": "daily",
+      "storageLocation": "yard-c",
+      "isHazardous": false,
+      "wasteCode": "FM-404",
+      "regulatoryClassification": "industrial_byproduct"
+    }
+  },
+  {
+    "profile_id": "mfa_chennai_logistics_bridge",
+    "target_locality": "chennai",
+    "proposal_fit": "cross_locality_logistics_support",
+    "primaryMaterials": [
+      {
+        "name": "Route Capacity Blocks",
+        "category": "metal",
+        "subtype": "cluster-transport-capacity",
+        "monthlyVolume": 260,
+        "unit": "tons",
+        "costPerUnit": 22,
+        "supplier": "Fleet operators",
+        "recycledContentPercent": 0,
+        "processStep": "dispatch-planning"
+      },
+      {
+        "name": "Container Support Material",
+        "category": "metal",
+        "subtype": "container-support",
+        "monthlyVolume": 40,
+        "unit": "tons",
+        "costPerUnit": 35,
+        "supplier": "Port vendors",
+        "recycledContentPercent": 20,
+        "processStep": "packing"
+      },
+      {
+        "name": "Fuel Blend",
+        "category": "chemical",
+        "subtype": "fleet-fuel-blend",
+        "monthlyVolume": 70,
+        "unit": "tons",
+        "costPerUnit": 102,
+        "supplier": "Energy suppliers",
+        "recycledContentPercent": 5,
+        "processStep": "transport-energy"
+      }
+    ],
+    "wasteGenerated": {
+      "materialName": "Transport Packaging Scrap",
+      "materialCategory": "ferrous-metals",
+      "materialSubtype": "intercity-transport-capacity",
+      "physicalForm": "mixed",
+      "monthlyVolume": 30,
+      "unit": "tons",
+      "qualityGrade": "C",
+      "contaminationLevel": 16,
+      "moistureContent": 6,
+      "carbonFootprint": 1.1,
+      "waterUsage": 0.4,
+      "energyConsumption": 120,
+      "currentDisposalCost": 32,
+      "potentialValue": 95,
+      "classification": "energy_recovery",
+      "generationFrequency": "weekly",
+      "storageLocation": "dock-yard",
+      "isHazardous": false,
+      "wasteCode": "FM-505",
+      "regulatoryClassification": "non_hazardous_transport"
+    }
+  }
+]
+

@@ -1,0 +1,330 @@
+{
+  "notes": [
+    "Use these payloads in your materials/flow/create flow for 5 demo companies.",
+    "All are aligned to the +10 Hyderabad seed scenarios (ferrous focused).",
+    "Replace company_id with the actual company id for the logged-in company."
+  ],
+  "companies": [
+    {
+      "company_name": "Demo MetroCast Auto Components (hyderabad)",
+      "scenario_keys": ["s1", "s5"],
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "steel turnings clean",
+            "category": "metal",
+            "subtype": "steel-turnings-clean",
+            "monthlyVolume": 60,
+            "unit": "tons",
+            "costPerUnit": 252,
+            "supplier": "regional",
+            "recycledContentPercent": 12,
+            "processStep": "machining"
+          },
+          {
+            "name": "cast iron returns",
+            "category": "metal",
+            "subtype": "cast-iron-returns",
+            "monthlyVolume": 34,
+            "unit": "tons",
+            "costPerUnit": 238,
+            "supplier": "local",
+            "recycledContentPercent": 18,
+            "processStep": "casting"
+          },
+          {
+            "name": "re-rolled billet feed",
+            "category": "metal",
+            "subtype": "re-rolled-billet-feed",
+            "monthlyVolume": 28,
+            "unit": "tons",
+            "costPerUnit": 276,
+            "supplier": "regional",
+            "recycledContentPercent": 10,
+            "processStep": "forging"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "ferrous machining chips",
+          "materialCategory": "metal",
+          "materialSubtype": "steel-turnings-clean",
+          "physicalForm": "scrap",
+          "monthlyVolume": 22,
+          "unit": "tons",
+          "qualityGrade": "B",
+          "contaminationLevel": 6,
+          "moistureContent": 2,
+          "carbonFootprint": 1.1,
+          "waterUsage": 0.6,
+          "energyConsumption": 4.2,
+          "currentDisposalCost": 95000,
+          "potentialValue": 175000,
+          "classification": "recyclable",
+          "generationFrequency": "daily",
+          "storageLocation": "yard-1",
+          "isHazardous": false,
+          "wasteCode": "FM-101",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo InfraBeam Structures (hyderabad)",
+      "scenario_keys": ["s2", "s7"],
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "hms1 heavy scrap",
+            "category": "metal",
+            "subtype": "hms-1-heavy-scrap",
+            "monthlyVolume": 75,
+            "unit": "tons",
+            "costPerUnit": 245,
+            "supplier": "regional",
+            "recycledContentPercent": 22,
+            "processStep": "beam fabrication"
+          },
+          {
+            "name": "mill scale blend",
+            "category": "metal",
+            "subtype": "mill-scale-blend",
+            "monthlyVolume": 42,
+            "unit": "tons",
+            "costPerUnit": 205,
+            "supplier": "local",
+            "recycledContentPercent": 30,
+            "processStep": "surface treatment"
+          },
+          {
+            "name": "cluster transport bundle",
+            "category": "metal",
+            "subtype": "cluster-transport-bundle",
+            "monthlyVolume": 90,
+            "unit": "tons",
+            "costPerUnit": 19,
+            "supplier": "local logistics",
+            "recycledContentPercent": 0,
+            "processStep": "inbound handling"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "ferrous beam cuttings",
+          "materialCategory": "metal",
+          "materialSubtype": "hms-1-heavy-scrap",
+          "physicalForm": "scrap",
+          "monthlyVolume": 31,
+          "unit": "tons",
+          "qualityGrade": "B",
+          "contaminationLevel": 8,
+          "moistureContent": 1,
+          "carbonFootprint": 1.3,
+          "waterUsage": 0.3,
+          "energyConsumption": 3.7,
+          "currentDisposalCost": 110000,
+          "potentialValue": 188000,
+          "classification": "recyclable",
+          "generationFrequency": "daily",
+          "storageLocation": "yard-2",
+          "isHazardous": false,
+          "wasteCode": "FM-102",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo RailGrid Fabrications (hyderabad)",
+      "scenario_keys": ["s3", "s8"],
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "re-rolled billet feed",
+            "category": "metal",
+            "subtype": "re-rolled-billet-feed",
+            "monthlyVolume": 52,
+            "unit": "tons",
+            "costPerUnit": 288,
+            "supplier": "processor",
+            "recycledContentPercent": 35,
+            "processStep": "rail plate line"
+          },
+          {
+            "name": "iron oxide fines",
+            "category": "metal",
+            "subtype": "iron-oxide-fines",
+            "monthlyVolume": 46,
+            "unit": "tons",
+            "costPerUnit": 198,
+            "supplier": "local",
+            "recycledContentPercent": 15,
+            "processStep": "blending"
+          },
+          {
+            "name": "stainless scrap 304 mix",
+            "category": "metal",
+            "subtype": "stainless-scrap-304-mix",
+            "monthlyVolume": 24,
+            "unit": "tons",
+            "costPerUnit": 278,
+            "supplier": "recycler",
+            "recycledContentPercent": 28,
+            "processStep": "special grades"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "rail trimming scrap",
+          "materialCategory": "metal",
+          "materialSubtype": "re-rolled-billet-feed",
+          "physicalForm": "scrap",
+          "monthlyVolume": 19,
+          "unit": "tons",
+          "qualityGrade": "B",
+          "contaminationLevel": 5,
+          "moistureContent": 1,
+          "carbonFootprint": 1.0,
+          "waterUsage": 0.4,
+          "energyConsumption": 3.9,
+          "currentDisposalCost": 82000,
+          "potentialValue": 151000,
+          "classification": "recyclable",
+          "generationFrequency": "daily",
+          "storageLocation": "line-3 bay",
+          "isHazardous": false,
+          "wasteCode": "FM-103",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo GreenKiln Minerals (hyderabad)",
+      "scenario_keys": ["s4", "s9"],
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "de-zinced galvanized scrap",
+            "category": "metal",
+            "subtype": "de-zinced-galv-scrap",
+            "monthlyVolume": 44,
+            "unit": "tons",
+            "costPerUnit": 242,
+            "supplier": "processor",
+            "recycledContentPercent": 32,
+            "processStep": "mineral blend"
+          },
+          {
+            "name": "briquetted turnings",
+            "category": "metal",
+            "subtype": "briquetted-turnings",
+            "monthlyVolume": 58,
+            "unit": "tons",
+            "costPerUnit": 232,
+            "supplier": "recycler",
+            "recycledContentPercent": 40,
+            "processStep": "pellet feed"
+          },
+          {
+            "name": "mill scale blend",
+            "category": "metal",
+            "subtype": "mill-scale-blend",
+            "monthlyVolume": 36,
+            "unit": "tons",
+            "costPerUnit": 201,
+            "supplier": "local",
+            "recycledContentPercent": 26,
+            "processStep": "kiln charging"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "ferrous kiln fines",
+          "materialCategory": "metal",
+          "materialSubtype": "iron-oxide-fines",
+          "physicalForm": "powder",
+          "monthlyVolume": 27,
+          "unit": "tons",
+          "qualityGrade": "C",
+          "contaminationLevel": 9,
+          "moistureContent": 3,
+          "carbonFootprint": 1.6,
+          "waterUsage": 0.7,
+          "energyConsumption": 4.8,
+          "currentDisposalCost": 101000,
+          "potentialValue": 149000,
+          "classification": "processable",
+          "generationFrequency": "daily",
+          "storageLocation": "silo-fines",
+          "isHazardous": false,
+          "wasteCode": "FM-104",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    },
+    {
+      "company_name": "Demo HeatLoop Recovery (hyderabad)",
+      "scenario_keys": ["s6", "s10"],
+      "payload": {
+        "company_id": "REPLACE_WITH_COMPANY_ID",
+        "primaryMaterials": [
+          {
+            "name": "stainless scrap 304 mix",
+            "category": "metal",
+            "subtype": "stainless-scrap-304-mix",
+            "monthlyVolume": 30,
+            "unit": "tons",
+            "costPerUnit": 282,
+            "supplier": "recycler",
+            "recycledContentPercent": 24,
+            "processStep": "recovery feed"
+          },
+          {
+            "name": "cluster transport bundle",
+            "category": "metal",
+            "subtype": "cluster-transport-bundle",
+            "monthlyVolume": 120,
+            "unit": "tons",
+            "costPerUnit": 18,
+            "supplier": "logistics",
+            "recycledContentPercent": 0,
+            "processStep": "dispatch optimization"
+          },
+          {
+            "name": "cast iron returns",
+            "category": "metal",
+            "subtype": "cast-iron-returns",
+            "monthlyVolume": 33,
+            "unit": "tons",
+            "costPerUnit": 228,
+            "supplier": "local",
+            "recycledContentPercent": 20,
+            "processStep": "heat recovery blend"
+          }
+        ],
+        "wasteGenerated": {
+          "materialName": "ferrous recovery residue",
+          "materialCategory": "metal",
+          "materialSubtype": "briquetted-turnings",
+          "physicalForm": "granular",
+          "monthlyVolume": 21,
+          "unit": "tons",
+          "qualityGrade": "C",
+          "contaminationLevel": 10,
+          "moistureContent": 4,
+          "carbonFootprint": 1.4,
+          "waterUsage": 0.5,
+          "energyConsumption": 5.1,
+          "currentDisposalCost": 93000,
+          "potentialValue": 137000,
+          "classification": "energy_recovery",
+          "generationFrequency": "daily",
+          "storageLocation": "recovery-yard",
+          "isHazardous": false,
+          "wasteCode": "FM-105",
+          "regulatoryClassification": "non-hazardous-industrial"
+        }
+      }
+    }
+  ]
+}
+
