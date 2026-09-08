@@ -9,6 +9,8 @@ services:
     healthCheckPath: /health
     autoDeploy: false
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
       - key: NEXT_PUBLIC_SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
