@@ -110,11 +110,18 @@ export async function signUp(
       );
     }
 
-    await ensureSuperAgentForLocality({
-      locality,
-      city: companyData.city,
-      country: companyData.country,
-    });
+    // Super-agent creation needs elevated database access in most Supabase
+    // setups. Do not invalidate a successfully created user/company if the
+    // optional coordinator cannot be created from this browser session.
+    try {
+      await ensureSuperAgentForLocality({
+        locality,
+        city: companyData.city,
+        country: companyData.country,
+      });
+    } catch (error) {
+      console.warn("Super-agent setup deferred:", error);
+    }
 
     console.log("Signup complete!");
 
@@ -154,8 +161,15 @@ export async function signIn(email: string, password: string) {
       .maybeSingle();
 
     if (companyError) {
-      console.error("Company fetch error:", companyError);
-      throw companyError;
+      console.error("Company fetch error:", {
+        code: companyError.code,
+        message: companyError.message,
+        details: companyError.details,
+        hint: companyError.hint,
+      });
+      throw new Error(
+        `Could not load the company profile (${companyError.code || "unknown"}): ${companyError.message}`,
+      );
     }
 
     // If company missing → incomplete registration state
@@ -207,11 +221,15 @@ export async function signIn(email: string, password: string) {
       city?: string;
       country?: string;
     };
-    await ensureSuperAgentForLocality({
-      locality: company.locality,
-      city: companyLocation.city,
-      country: companyLocation.country,
-    });
+    try {
+      await ensureSuperAgentForLocality({
+        locality: company.locality,
+        city: companyLocation.city,
+        country: companyLocation.country,
+      });
+    } catch (error) {
+      console.warn("Super-agent setup deferred:", error);
+    }
 
     return {
       user: data.user,
@@ -232,11 +250,11 @@ export async function signOut() {
 export async function getCurrentUser() {
   try {
     const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
+      data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
 
-    if (userError || !user) return null;
+    if (!user) return null;
 
     const { data: company, error: companyError } = await supabase
       .from("companies")

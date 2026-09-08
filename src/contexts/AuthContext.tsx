@@ -42,6 +42,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setCompany(null);
       }
     } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return;
+      }
       console.error("Auth refresh error:", error);
       setUser(null);
       setCompany(null);
