@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: econexus-langgraph
+    runtime: python
+    rootDir: python/langgraph_agents
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: AGENT_OFFER_VISIBILITY
+        value: local
+      - key: AGENT_REQUEST_VISIBILITY
+        value: local

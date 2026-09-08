@@ -1,8 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+EcoNexus is a two-service demo: a Next.js dashboard and a FastAPI/LangGraph
+agent sidecar. The agent runs in deterministic demo mode when no Groq key is set.
 
 ## Getting Started
 
-First, run the development server:
+Create a local, untracked environment file from `.env.example`, provide your
+Supabase URL, publishable key, and service-role key, then run:
 
 ```bash
 npm run dev
@@ -15,6 +17,25 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Hosted deployment / Jenkins
+
+Deploy the Next.js app to Vercel and the FastAPI/LangGraph service to Render.
+`render.yaml` configures the Python service. Do not add `GROQ_API_KEY`; this
+intentionally enables deterministic agent responses. The Next.js proxy endpoints are:
+
+- `GET` / `POST` `/api/langgraph/runs`
+- `POST` `/api/langgraph/runs/{runId}/resume`
+
+The included `Jenkinsfile` verifies both services and deploys `main` to Vercel
+and Render. Create these Jenkins **Secret text** credentials (exact IDs):
+
+- `econexus-supabase-url`
+- `econexus-supabase-publishable-key`
+- `econexus-vercel-token`
+- `econexus-vercel-org-id`
+- `econexus-vercel-project-id`
+- `econexus-render-deploy-hook`
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
