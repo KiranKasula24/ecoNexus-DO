@@ -57,6 +57,8 @@ export class AgentRunner {
     return this.pick(templates);
   }
 
+
+  
   private static counterMessage(round: number, material: string): string {
     const templates = [
       `Round ${round}: revising price for ${material}.`,
