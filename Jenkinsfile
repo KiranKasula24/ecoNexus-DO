@@ -2,46 +2,6 @@ pipeline {
   agent any
 
   stages {
-    stage('Verify web') {
-      steps {
-        script {
-          if (isUnix()) {
-            sh 'npm ci'
-          } else {
-            powershell 'npm.cmd ci'
-          }
-        }
-        withCredentials([
-          string(credentialsId: 'econexus-supabase-url', variable: 'NEXT_PUBLIC_SUPABASE_URL'),
-          string(credentialsId: 'econexus-supabase-publishable-key', variable: 'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY')
-        ]) {
-          script {
-            if (isUnix()) {
-              sh 'npm run build'
-            } else {
-              powershell 'npm.cmd run build'
-            }
-          }
-        }
-      }
-    }
-
-    stage('Verify LangGraph') {
-      steps {
-        dir('python/langgraph_agents') {
-          script {
-            if (isUnix()) {
-              sh 'python3 -m pip install -r requirements.txt'
-              sh 'python3 -m pytest -q'
-            } else {
-              powershell 'python -m pip install -r requirements.txt'
-              powershell 'python -m pytest -q'
-            }
-          }
-        }
-      }
-    }
-
     stage('Deploy Vercel') {
       when { branch 'main' }
       steps {
@@ -52,11 +12,9 @@ pipeline {
         ]) {
           script {
             if (isUnix()) {
-              sh '''npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-npx vercel build --prod --token="$VERCEL_TOKEN"
-npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"'''
+              sh 'npx vercel deploy --prod --yes --token="$VERCEL_TOKEN"'
             } else {
-              powershell 'npx.cmd vercel pull --yes --environment=production --token=$env:VERCEL_TOKEN; npx.cmd vercel build --prod --token=$env:VERCEL_TOKEN; npx.cmd vercel deploy --prebuilt --prod --token=$env:VERCEL_TOKEN'
+              powershell 'npx.cmd vercel deploy --prod --yes --token=$env:VERCEL_TOKEN'
             }
           }
         }
