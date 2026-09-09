@@ -98,14 +98,14 @@ export default function RecyclerDashboard() {
         <div
           className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${
             stats.agent_status === "active"
-              ? "bg-emerald-100 text-emerald-700"
-              : "bg-amber-100 text-amber-700"
+              ? "bg-emerald-900/10 text-emerald-700"
+              : "bg-amber-900/10 text-amber-700"
           }`}
         >
           <div
             className={`w-2 h-2 rounded-full ${
               stats.agent_status === "active"
-                ? "bg-emerald-500"
+                ? "bg-emerald-600"
                 : "bg-amber-500"
             }`}
           ></div>
@@ -205,7 +205,7 @@ export default function RecyclerDashboard() {
       {/* Main Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Nexus Feed */}
-        <div className="bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 rounded-lg p-6">
+        <div className="bg-gradient-to-br from-emerald-100 via-green-50 to-lime-50 border border-emerald-300 rounded-lg p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -220,7 +220,7 @@ export default function RecyclerDashboard() {
           <div className="space-y-2">
             <Link
               href="/nexus"
-              className="block w-full px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 text-center font-medium"
+              className="block w-full px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 text-center font-medium shadow-sm"
             >
               Open Nexus
             </Link>
@@ -234,7 +234,7 @@ export default function RecyclerDashboard() {
         </div>
 
         {/* Pending Approvals */}
-        <div className="bg-gradient-to-br from-amber-50 to-lime-50 border border-amber-200 rounded-lg p-6">
+        <div className="bg-gradient-to-br from-amber-100 to-lime-50 border border-amber-300 rounded-lg p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -249,7 +249,7 @@ export default function RecyclerDashboard() {
           </div>
           <Link
             href="/deals/pending"
-            className="block w-full px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-center font-medium"
+            className="block w-full px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-center font-medium shadow-sm"
           >
             Review Deals
           </Link>
@@ -293,38 +293,38 @@ export default function RecyclerDashboard() {
       </div>
 
       {/* NexaPrime Info */}
-      <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-lg p-6">
+      <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-800 border border-emerald-700 rounded-lg p-6 text-white shadow-sm">
         <div className="flex items-start">
           <div className="flex-1">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl font-semibold text-white mb-2">
                Your NexaPrime Agent
             </h2>
-            <p className="text-sm text-gray-700 mb-3">
+            <p className="text-sm text-emerald-100 mb-3">
               NexaPrime scans ALL localities globally for waste streams matching
               your criteria.
             </p>
             <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-white rounded p-3">
-                <p className="text-gray-600">Service Area</p>
-                <p className="font-semibold capitalize">
+              <div className="bg-white/10 rounded p-3 border border-white/10">
+                <p className="text-emerald-100">Service Area</p>
+                <p className="font-semibold capitalize text-white">
                   {profile?.geographic_service_area || "Regional"}
                 </p>
               </div>
-              <div className="bg-white rounded p-3">
-                <p className="text-gray-600">Min Pickup</p>
-                <p className="font-semibold">
+              <div className="bg-white/10 rounded p-3 border border-white/10">
+                <p className="text-emerald-100">Min Pickup</p>
+                <p className="font-semibold text-white">
                   {profile?.min_pickup_volume_tons || 5} tons
                 </p>
               </div>
-              <div className="bg-white rounded p-3">
-                <p className="text-gray-600">Max Contamination</p>
-                <p className="font-semibold">
+              <div className="bg-white/10 rounded p-3 border border-white/10">
+                <p className="text-emerald-100">Max Contamination</p>
+                <p className="font-semibold text-white">
                   {profile?.max_contamination_tolerance || 10}%
                 </p>
               </div>
-              <div className="bg-white rounded p-3">
-                <p className="text-gray-600">Processing Methods</p>
-                <p className="font-semibold">
+              <div className="bg-white/10 rounded p-3 border border-white/10">
+                <p className="text-emerald-100">Processing Methods</p>
+                <p className="font-semibold text-white">
                   {profile?.processing_methods?.length || 0} methods
                 </p>
               </div>
@@ -332,7 +332,7 @@ export default function RecyclerDashboard() {
             <div className="mt-4">
               <Link
                 href="/agent/settings"
-                className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-medium inline-block"
+                className="px-6 py-2 bg-white text-emerald-800 rounded-lg hover:bg-emerald-50 font-medium inline-block"
               >
                  Configure NexaPrime
               </Link>
@@ -351,10 +351,10 @@ export default function RecyclerDashboard() {
 
 function MetricCard({ title, value, icon, color, highlight = false }: any) {
   const colorClasses = {
-    emerald: "bg-emerald-50 border-emerald-200",
-    green: "bg-green-50 border-green-200",
-    amber: "bg-amber-50 border-amber-200",
-    teal: "bg-teal-50 border-teal-200",
+    emerald: "bg-emerald-900/5 border-emerald-200",
+    green: "bg-green-900/5 border-green-200",
+    amber: "bg-amber-900/5 border-amber-200",
+    teal: "bg-teal-900/5 border-teal-200",
   };
 
   return (
