@@ -17,6 +17,10 @@ export async function parseInvoicePDF(pdfBuffer: Buffer): Promise<{
   confidence: number;
 }> {
   try {
+    console.log("[invoice-parser] Starting PDF parse", {
+      bufferBytes: pdfBuffer.length,
+    });
+
     // 🔥 Dynamic import (fixes ESM issue)
     const pdfModule = await import("pdf-parse");
     const pdfParse = (pdfModule as any).default || pdfModule;
@@ -24,6 +28,10 @@ export async function parseInvoicePDF(pdfBuffer: Buffer): Promise<{
     // Step 1: Extract text from PDF
     const pdfData = await pdfParse(pdfBuffer);
     const text = pdfData.text;
+    console.log("[invoice-parser] PDF text extracted", {
+      pages: pdfData.numpages,
+      textCharacters: text.length,
+    });
 
     // Step 2: Parse structured data
     const parsed = parseInvoiceText(text);
@@ -33,6 +41,12 @@ export async function parseInvoicePDF(pdfBuffer: Buffer): Promise<{
 
     // Step 4: Calculate confidence
     const confidence = calculateConfidence(parsed, materials);
+    console.log("[invoice-parser] Invoice parsed", {
+      invoiceNumber: parsed.invoice_number,
+      lineItems: parsed.line_items.length,
+      identifiedMaterials: materials.length,
+      confidence,
+    });
 
     return {
       text,
@@ -41,7 +55,7 @@ export async function parseInvoicePDF(pdfBuffer: Buffer): Promise<{
       confidence,
     };
   } catch (error) {
-    console.error("PDF parsing error:", error);
+    console.error("[invoice-parser] PDF parsing error", error);
     throw new Error("Failed to parse PDF");
   }
 }
@@ -51,7 +65,7 @@ export async function parseInvoicePDF(pdfBuffer: Buffer): Promise<{
 // ============================================
 
 function parseInvoiceText(text: string): ParsedInvoiceData {
-  const doc = compromise(text);
+  compromise(text);
 
   // Extract invoice number
   const invoiceNumber = extractInvoiceNumber(text);
@@ -67,6 +81,14 @@ function parseInvoiceText(text: string): ParsedInvoiceData {
 
   // Extract total
   const totalAmount = extractTotalAmount(text);
+
+  console.log("[invoice-parser] Fields extracted", {
+    hasInvoiceNumber: Boolean(invoiceNumber),
+    hasDate: Boolean(date),
+    hasSupplier: Boolean(supplier),
+    lineItems: lineItems.length,
+    totalAmount,
+  });
 
   return {
     invoice_number: invoiceNumber,
@@ -240,6 +262,11 @@ function identifyMaterials(parsed: ParsedInvoiceData): IdentifiedMaterial[] {
   for (const item of parsed.line_items) {
     const material = getMaterialProperties(item.description);
 
+    console.log("[invoice-parser] Material match", {
+      description: item.description,
+      matchedMaterial: material?.name,
+    });
+
     if (material && !identifiedMaterialIds.has(material.material_id)) {
       identifiedMaterialIds.add(material.material_id);
 
@@ -265,6 +292,11 @@ function identifyMaterials(parsed: ParsedInvoiceData): IdentifiedMaterial[] {
       });
     }
   }
+
+  console.log("[invoice-parser] Material identification complete", {
+    inputItems: parsed.line_items.length,
+    identifiedMaterials: identified.length,
+  });
 
   return identified;
 }
