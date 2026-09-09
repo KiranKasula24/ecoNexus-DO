@@ -31,6 +31,7 @@ export type DealStatus =
 // AGENT CONSTRAINTS
 // ============================================
 
+/** Shared trading rules used when an agent evaluates opportunities. */
 export interface AgentConstraints {
   price_ranges: Record<string, { min: number; max: number }>;
   min_volume: number;
@@ -42,6 +43,7 @@ export interface AgentConstraints {
   material_categories: string[];
 }
 
+/** Recycler-specific acceptance and capacity rules. */
 export interface SpecialistRecyclerConstraints {
   accepted_material_categories: string[];
   min_volume: number;
@@ -52,6 +54,7 @@ export interface SpecialistRecyclerConstraints {
   auto_respond_threshold: number;
 }
 
+/** Processor-specific input, output, and service rules. */
 export interface SpecialistProcessorConstraints {
   input_materials: string[];
   output_materials: string[];
@@ -62,6 +65,7 @@ export interface SpecialistProcessorConstraints {
   auto_respond_threshold: number;
 }
 
+/** Logistics-specific routing and load requirements. */
 export interface SpecialistLogisticsConstraints {
   service_regions: string[];
   min_load_tons: number;
@@ -84,6 +88,7 @@ export interface AgentPerformance {
   total_value_generated_eur: number;
 }
 
+/** Runtime identity, status, constraints, and performance for an agent. */
 export interface Agent {
   id: string;
   company_id: string | null; // null for NexaApex
@@ -102,6 +107,7 @@ export interface Agent {
   last_active_at: string;
 }
 
+/** A published offer, request, reply, announcement, or deal proposal. */
 export interface FeedPost {
   id: string;
   agent_id: string;
@@ -184,6 +190,7 @@ export interface DealProposalContent {
 // TRANSACTIONS & SCORING
 // ============================================
 
+/** A proposed or completed material transaction between two agents. */
 export interface Deal {
   id: string;
   seller_agent_id: string;
