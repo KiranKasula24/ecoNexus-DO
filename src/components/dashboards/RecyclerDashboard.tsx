@@ -30,6 +30,7 @@ export default function RecyclerDashboard() {
       .eq("company_id", company.id)
       .single();
 
+    console.log("RecyclerDashboard profileData:", profileData);
     setProfile(profileData as any);
 
     // Load feed posts (buy requests)
@@ -38,6 +39,8 @@ export default function RecyclerDashboard() {
       .select("id, status")
       .eq("company_id", company.id)
       .single<{ id: string; status: "active" | "paused" }>();
+
+    console.log("RecyclerDashboard agent:", agent);
 
     if (agent && agent.id) {
       const { count: buyRequestsCount } = await supabase
@@ -60,16 +63,25 @@ export default function RecyclerDashboard() {
         .eq("buyer_company_id", company.id)
         .eq("status", "pending_buyer_approval");
 
-      setStats({
+      const nextStats = {
         active_buy_requests: buyRequestsCount || 0,
         active_offers: offersCount || 0,
         pending_purchases: dealsCount || 0,
         processing_utilization:
           (profileData as any)?.current_utilization_percentage || 0,
         agent_status: agent.status,
-      });
+      };
+
+      console.log("RecyclerDashboard nextStats:", nextStats);
+      setStats(nextStats);
     }
   };
+
+  console.log("RecyclerDashboard render state:", {
+    company,
+    profile,
+    stats,
+  });
 
   return (
     <div className="space-y-6">
@@ -86,13 +98,15 @@ export default function RecyclerDashboard() {
         <div
           className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${
             stats.agent_status === "active"
-              ? "bg-green-100 text-green-700"
-              : "bg-yellow-100 text-yellow-700"
+              ? "bg-emerald-100 text-emerald-700"
+              : "bg-amber-100 text-amber-700"
           }`}
         >
           <div
             className={`w-2 h-2 rounded-full ${
-              stats.agent_status === "active" ? "bg-green-500" : "bg-yellow-500"
+              stats.agent_status === "active"
+                ? "bg-emerald-500"
+                : "bg-amber-500"
             }`}
           ></div>
           <span className="text-sm font-medium">
@@ -107,7 +121,7 @@ export default function RecyclerDashboard() {
           title="Active Buy Requests"
           value={stats.active_buy_requests}
           icon=""
-          color="blue"
+          color="emerald"
         />
         <MetricCard
           title="Materials for Sale"
@@ -119,14 +133,14 @@ export default function RecyclerDashboard() {
           title="Pending Purchases"
           value={stats.pending_purchases}
           icon=""
-          color="yellow"
+          color="amber"
           highlight={stats.pending_purchases > 0}
         />
         <MetricCard
           title="Capacity Utilization"
           value={`${stats.processing_utilization}%`}
           icon=""
-          color="purple"
+          color="teal"
         />
       </div>
 
@@ -143,7 +157,7 @@ export default function RecyclerDashboard() {
             </div>
             <div>
               <p className="text-sm text-gray-600 mb-1">Available Capacity</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-2xl font-bold text-emerald-600">
                 {Math.round(
                   profile.processing_capacity_tons_month *
                     (1 - stats.processing_utilization / 100),
@@ -191,7 +205,7 @@ export default function RecyclerDashboard() {
       {/* Main Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Nexus Feed */}
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-lg p-6">
+        <div className="bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 rounded-lg p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -206,13 +220,13 @@ export default function RecyclerDashboard() {
           <div className="space-y-2">
             <Link
               href="/nexus"
-              className="block w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-center font-medium"
+              className="block w-full px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 text-center font-medium"
             >
               Open Nexus
             </Link>
             <Link
               href="/nexus?view=buy-requests"
-              className="block w-full px-4 py-2 bg-white border border-green-600 text-green-700 rounded-lg hover:bg-green-50 text-center font-medium"
+              className="block w-full px-4 py-2 bg-white border border-emerald-600 text-emerald-700 rounded-lg hover:bg-emerald-50 text-center font-medium"
             >
               My Buy Requests
             </Link>
@@ -220,7 +234,7 @@ export default function RecyclerDashboard() {
         </div>
 
         {/* Pending Approvals */}
-        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
+        <div className="bg-gradient-to-br from-amber-50 to-lime-50 border border-amber-200 rounded-lg p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -235,7 +249,7 @@ export default function RecyclerDashboard() {
           </div>
           <Link
             href="/deals/pending"
-            className="block w-full px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 text-center font-medium"
+            className="block w-full px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-center font-medium"
           >
             Review Deals
           </Link>
@@ -279,7 +293,7 @@ export default function RecyclerDashboard() {
       </div>
 
       {/* NexaPrime Info */}
-      <div className="bg-gradient-to-r from-green-50 to-teal-50 border border-green-200 rounded-lg p-6">
+      <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-lg p-6">
         <div className="flex items-start">
           <div className="flex-1">
             <h2 className="text-xl font-semibold text-gray-900 mb-2">
@@ -318,7 +332,7 @@ export default function RecyclerDashboard() {
             <div className="mt-4">
               <Link
                 href="/agent/settings"
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium inline-block"
+                className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-medium inline-block"
               >
                  Configure NexaPrime
               </Link>
@@ -337,16 +351,16 @@ export default function RecyclerDashboard() {
 
 function MetricCard({ title, value, icon, color, highlight = false }: any) {
   const colorClasses = {
-    blue: "bg-blue-50 border-blue-200",
+    emerald: "bg-emerald-50 border-emerald-200",
     green: "bg-green-50 border-green-200",
-    yellow: "bg-yellow-50 border-yellow-200",
-    purple: "bg-purple-50 border-purple-200",
+    amber: "bg-amber-50 border-amber-200",
+    teal: "bg-teal-50 border-teal-200",
   };
 
   return (
     <div
       className={`border rounded-lg p-5 ${colorClasses[color as keyof typeof colorClasses]} ${
-        highlight ? "ring-2 ring-yellow-500" : ""
+        highlight ? "ring-2 ring-amber-500" : ""
       }`}
     >
       <div className="flex items-center justify-between">

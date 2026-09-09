@@ -30,6 +30,7 @@ export default function LogisticsDashboard() {
       .eq("company_id", company.id)
       .single()) as { data: any };
 
+    console.log("LogisticsDashboard profileData:", profileData);
     setProfile(profileData);
 
     // Load agent
@@ -38,6 +39,8 @@ export default function LogisticsDashboard() {
       .select("id, status")
       .eq("company_id", company.id)
       .single()) as { data: { id: string; status: string } | null };
+
+    console.log("LogisticsDashboard agent:", agent);
 
     if (agent && agent.id) {
       const { count: routesCount } = await supabase
@@ -55,15 +58,24 @@ export default function LogisticsDashboard() {
         )
         .in("status", ["pending_seller_approval", "pending_buyer_approval"]);
 
-      setStats({
+      const nextStats = {
         active_routes: routesCount || 0,
         available_capacity: profileData?.available_capacity_tons_week || 0,
         consolidation_opportunities: 0, // TODO: calculate from matching routes
         pending_requests: requestsCount || 0,
         agent_status: agent.status as "active" | "paused",
-      });
+      };
+
+      console.log("LogisticsDashboard nextStats:", nextStats);
+      setStats(nextStats);
     }
   };
+
+  console.log("LogisticsDashboard render state:", {
+    company,
+    profile,
+    stats,
+  });
 
   return (
     <div className="space-y-6">
