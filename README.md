@@ -32,9 +32,7 @@ and Render. Create these Jenkins **Secret text** credentials (exact IDs):
 
 - `econexus-supabase-url`
 - `econexus-supabase-publishable-key`
-- `econexus-vercel-token`
-- `econexus-vercel-org-id`
-- `econexus-vercel-project-id`
+- `econexus-vercel-deploy-hook`
 - `econexus-render-deploy-hook`
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
