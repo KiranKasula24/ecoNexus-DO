@@ -1,6 +1,30 @@
 import { supabase } from "@/lib/database/supabase";
 import { ensureSuperAgentForLocality } from "@/lib/agents/super-agent-registry";
 
+const isAbortError = (error: unknown) =>
+  error instanceof Error && error.name === "AbortError";
+
+async function getCompanyForUser(userId: string) {
+  const result = await supabase
+    .from("companies")
+    .select("*")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  // Supabase can cancel a request while it is processing the SIGNED_IN event.
+  // One short retry makes the login flow deterministic without masking real errors.
+  if (isAbortError(result.error)) {
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    return supabase
+      .from("companies")
+      .select("*")
+      .eq("user_id", userId)
+      .maybeSingle();
+  }
+
+  return result;
+}
+
 export async function signUp(
   email: string,
   password: string,
@@ -154,11 +178,7 @@ export async function signIn(email: string, password: string) {
     console.log("2. Fetching company...");
 
     // ✅ Use maybeSingle instead of single
-    const { data: company, error: companyError } = await supabase
-      .from("companies")
-      .select("*")
-      .eq("user_id", userId)
-      .maybeSingle();
+    const { data: company, error: companyError } = await getCompanyForUser(userId);
 
     if (companyError) {
       console.error("Company fetch error:", {
@@ -256,11 +276,7 @@ export async function getCurrentUser() {
 
     if (!user) return null;
 
-    const { data: company, error: companyError } = await supabase
-      .from("companies")
-      .select("*")
-      .eq("user_id", user.id)
-      .maybeSingle();
+    const { data: company, error: companyError } = await getCompanyForUser(user.id);
 
     if (companyError || !company) return null;
 
@@ -269,6 +285,7 @@ export async function getCurrentUser() {
       company,
     };
   } catch (error) {
+    if (isAbortError(error)) return null;
     console.error("Get current user error:", error);
     return null;
   }

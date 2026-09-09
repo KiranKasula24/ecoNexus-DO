@@ -62,7 +62,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
-        await refreshAuth();
+        // signIn() fetches the company immediately after this event. Deferring
+        // the context refresh prevents two Supabase reads from racing each other.
+        setUser(session.user);
+        window.setTimeout(() => {
+          void refreshAuth();
+        }, 300);
       } else {
         setUser(null);
         setCompany(null);
