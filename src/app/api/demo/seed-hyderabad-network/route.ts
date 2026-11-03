@@ -5,10 +5,12 @@ import type { Database } from "@/types/database";
 
 const HYD_SEED_TAG = "hyd-network-seed-v2";
 
-const admin = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+function getAdmin() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 type SeedBody = {
   locality?: string;
@@ -50,6 +52,7 @@ async function getOrCreateCompany(params: {
   entity_type: "manufacturer" | "recycler" | "processor" | "logistics" | "energy_recovery";
   industry: string;
 }) {
+  const admin = getAdmin();
   const { data: existing } = await admin
     .from("companies")
     .select("id")
@@ -82,6 +85,7 @@ async function getOrCreateAgent(params: {
   locality: string;
   constraints?: Record<string, any>;
 }) {
+  const admin = getAdmin();
   const { data: existing } = await admin
     .from("agents")
     .select("id")
@@ -117,6 +121,7 @@ async function getOrCreatePassport(params: {
   quality_tier: number;
   locality: string;
 }) {
+  const admin = getAdmin();
   const { data: existing } = await admin
     .from("material_passports")
     .select("id")
@@ -151,6 +156,7 @@ async function getOrCreatePassport(params: {
 
 export async function POST(request: NextRequest) {
   try {
+    const admin = getAdmin();
     const body = ((await request.json().catch(() => ({}))) || {}) as SeedBody;
     const accessToken = await resolveAccessToken(request);
     if (!accessToken) {

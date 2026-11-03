@@ -2,19 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabasePublicKey =
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+function getAuthSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const supabasePublicKey =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-// Session validation only needs the browser-safe key. Keep privileged access
-// separate so a bad/missing server key cannot be mistaken for a bad user login.
-const authSupabase = createClient(supabaseUrl, supabasePublicKey);
-const adminSupabase = createClient(
-  supabaseUrl,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+  return createClient(supabaseUrl, supabasePublicKey);
+}
 
+function getAdminSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 async function resolveAccessToken(request: NextRequest): Promise<string | null> {
   const authHeader = request.headers.get("authorization");
   if (authHeader?.toLowerCase().startsWith("bearer ")) {
@@ -51,13 +53,13 @@ export async function GET(request: NextRequest) {
     const {
       data: { user },
       error: authError,
-    } = await authSupabase.auth.getUser(accessToken);
+    } = await getAuthSupabase().auth.getUser(accessToken);
 
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { data: company, error: companyError } = await adminSupabase
+    const { data: company, error: companyError } = await getAdminSupabase()
       .from("companies")
       .select("id")
       .eq("user_id", user.id)
@@ -67,7 +69,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Company not found" }, { status: 404 });
     }
 
-    const { data: deals, error: dealsError } = await adminSupabase
+   const { data: deals, error: dealsError } = await getAdminSupabase()
       .from("deals")
       .select(
         `

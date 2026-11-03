@@ -1,4 +1,18 @@
-import { supabase } from "@/lib/database/supabase";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/types/database";
+
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !key) {
+    throw new Error("Missing Supabase environment variables.");
+  }
+
+  return createClient<Database>(url, key);
+}
 
 export type EffectiveSkuMapping = {
   waste_sku: string;
@@ -37,7 +51,7 @@ export async function getEffectiveMappingsForWasteSku(
   const normalized = normalizeSku(wasteSku);
   if (!normalized) return [];
 
-  const db: any = supabase;
+  const db: any = getSupabase();
   const { data } = await db
     .from("effective_processed_sku_mappings")
     .select("*")
@@ -58,7 +72,7 @@ export async function getWasteCandidatesForProcessedSku(
   const normalized = normalizeSku(processedSku);
   if (!normalized) return [];
 
-  const db: any = supabase;
+  const db: any = getSupabase();
   const { data } = await db
     .from("effective_processed_sku_mappings")
     .select("*")
@@ -86,7 +100,7 @@ async function getRuleEconomics(
   net_cost_multiplier: number;
   pure_material_cost_per_ton: number;
 }> {
-  const db: any = supabase;
+  const db: any = getSupabase();
   const { data } = await db
     .from("sku_processing_rules")
     .select("processing_cost_per_ton, net_cost_multiplier, pure_material_cost_per_ton")
@@ -152,7 +166,7 @@ export async function selectProcessorCandidate(params: {
   score: number;
   processing_fee_per_ton: number;
 } | null> {
-  const db: any = supabase;
+  const db: any = getSupabase();
   const { data: processors } = await db
     .from("agents")
     .select("id, company_id, locality")
