@@ -2,14 +2,17 @@
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 
-// Create server-side Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!, // must use service role for secure server operations
-);
+// Create server-side Supabase client when needed
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = getSupabase();
     // ============================
     // 1. AUTH VALIDATION
     // ============================
