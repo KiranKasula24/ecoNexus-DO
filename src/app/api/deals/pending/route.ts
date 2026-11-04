@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 async function resolveAccessToken(request: NextRequest): Promise<string | null> {
   const authHeader = request.headers.get("authorization");
@@ -20,6 +22,7 @@ async function resolveAccessToken(request: NextRequest): Promise<string | null> 
   for (const c of cookieStore.getAll()) {
     if (c.name.includes("auth-token")) {
       try {
+        const supabase = getSupabase();
         const parsed = JSON.parse(c.value);
         if (Array.isArray(parsed) && typeof parsed[0] === "string") {
           return parsed[0];
@@ -35,6 +38,7 @@ async function resolveAccessToken(request: NextRequest): Promise<string | null> 
 
 export async function GET(request: NextRequest) {
   try {
+    const supabase = getSupabase();
     const openStatuses = [
       "pending_seller_approval",
       "pending_buyer_approval",

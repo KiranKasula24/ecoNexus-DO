@@ -3,10 +3,12 @@ import { createClient } from "@supabase/supabase-js";
 import { parseRecyclerCapabilitiesDocx } from "@/lib/mapping/recycler-capabilities-parser";
 import type { Database } from "@/types/database";
 
-const admin = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+function getAdmin() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     const buf = Buffer.from(await file.arrayBuffer());
     const parsed = await parseRecyclerCapabilitiesDocx(buf);
-    const db: any = admin;
+    const db: any = getAdmin();
 
     if (deactivatePrior) {
       await db
